@@ -1,4 +1,5 @@
-package DA.Class_chinh;
+package Java.DoAn.Class_chinh;
+
 import java.util.Scanner;
 public class TheLoai {
     //thuộc tính

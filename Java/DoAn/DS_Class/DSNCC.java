@@ -1,8 +1,7 @@
-package DA.DS_Class;
+package Java.DoAn.DS_Class;
 
 import java.util.Scanner;
-import java.util.Arrays;
-import DA.Class_chinh.NhaCungCap;
+import Java.DoAn.Class_chinh.NhaCungCap;
 
 public class DSNCC {
     NhaCungCap[] dsNCC;

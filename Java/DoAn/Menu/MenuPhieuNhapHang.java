@@ -1,4 +1,4 @@
-package DA.Menu;
+package Java.DoAn.Menu;
 
 import java.util.Scanner;
 

@@ -1,7 +1,7 @@
-package DA.Menu;
+package Java.DoAn.Menu;
 
 import java.util.Scanner;
-import DA.DS_Class.DSNCC;
+import Java.DoAn.DS_Class.DSNCC;
 
 public class MenuNCC {
     public void menuNCC() {
