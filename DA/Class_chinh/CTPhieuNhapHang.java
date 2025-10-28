@@ -1,84 +1,98 @@
-package Java.DoAn.Class_chinh;
+package DA.Class_chinh;
+
+import java.util.Scanner;
 
 public class CTPhieuNhapHang {
-    //thuộc tính    
-    String maPNH, maSach; 
-    int soLuong;
-    double donGia ,thanhTien;
-    
-    //hàm thiết lập
-    public CTPhieuNhapHang(){
-        maPNH = "";
-        maSach ="";
-        soLuong = 0;
-        donGia=0.0;
-        thanhTien=0.0;
+
+    private String maPNH;
+    private String maSach;
+    private int soLuong;
+    private double donGia;
+    private double thanhTien;
+
+    public CTPhieuNhapHang() {
+        this.maPNH = "";
+        this.maSach = "";
+        this.soLuong = 0;
+        this.donGia = 0.0;
+        this.thanhTien = 0.0;
     }
 
-    public CTPhieuNhapHang(String maPNH, String maSach, int soLuong,double donGia ,double thanhTien){
+    public CTPhieuNhapHang(String maPNH, String maSach, int soLuong, double donGia) {
         this.maPNH = maPNH;
         this.maSach = maSach;
-        this.soLuong=soLuong;
+        this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = thanhTien;
+        this.thanhTien = soLuong * donGia;
     }
 
-    public CTPhieuNhapHang(CTPhieuNhapHang ctPNH){
-        this.maPNH =ctPNH.maPNH;
-        this.maSach=ctPNH.maSach;
-        this.soLuong =ctPNH.soLuong;
-        this.donGia=ctPNH.donGia;
-        this.thanhTien=ctPNH.thanhTien;
+    public CTPhieuNhapHang(CTPhieuNhapHang ctPNH) {
+        this.maPNH = ctPNH.maPNH;
+        this.maSach = ctPNH.maSach;
+        this.soLuong = ctPNH.soLuong;
+        this.donGia = ctPNH.donGia;
+        this.thanhTien = ctPNH.thanhTien;
     }
-    //in , out
-    public void nhap(){
-        java.util.Scanner sc = new java.util.Scanner(System.in);
-        System.out.println("Nhap ma Phieu Nhap Hang: ");
+
+    public void nhap() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap ma Phieu Nhap Hang: ");
         maPNH = sc.nextLine();
-        System.out.println("Nhap sach: ");
-        maSach= sc.nextLine();
-        System.out.println("Nhap so luong: ");
+        System.out.print("Nhap ma sach: ");
+        maSach = sc.nextLine();
+        System.out.print("Nhap so luong: ");
         soLuong = sc.nextInt();
-        System.out.println("Nhap don gia: ");
+        System.out.print("Nhap don gia: ");
         donGia = sc.nextDouble();
-        System.out.println("Thanh tien: ");
-        thanhTien = sc.nextDouble();
+        sc.nextLine();
+        thanhTien = soLuong * donGia;
     }
 
-    public void xuat(){
-        System.out.printf("%-10s %-20 %-20 %-10 %-10 %-10 %10.2f", maPNH,maSach,soLuong,donGia,thanhTien);
+    public void xuat() {
+        System.out.printf("%-10s %-15s %-10d %12.2f %12.2f%n", maPNH, maSach, soLuong, donGia, thanhTien);
     }
 
- // Get, set:
-    public String getmaPNH() {
+    public String getMaPNH() {
         return maPNH;
     }
-    public void setmaPNH(String maPNH) {
+
+    public void setMaPNH(String maPNH) {
         this.maPNH = maPNH;
     }
-    public String getmaSach() {
+
+    public String getMaSach() {
         return maSach;
     }
-    public void setmaSach(String maSach) {
+
+    public void setMaSach(String maSach) {
         this.maSach = maSach;
     }
-    public int getsoLuong() {
+
+    public int getSoLuong() {
         return soLuong;
     }
-    public void setsoLuong(int soLuong) {
+
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
 
+        this.thanhTien = this.soLuong * this.donGia;
     }
-    public Double donGia() {
+
+    public double getDonGia() {
         return donGia;
     }
-    public void donGia(double donGia) {
+
+    public void setDonGia(double donGia) {
         this.donGia = donGia;
+
+        this.thanhTien = this.soLuong * this.donGia;
     }
-    public double thanhTien() {
+
+    public double getThanhTien() {
         return thanhTien;
     }
-    public void setthanhTien(double thanhTien) {
+
+    public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
 
