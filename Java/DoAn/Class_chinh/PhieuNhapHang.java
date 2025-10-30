@@ -1,29 +1,27 @@
-package DA.Class_chinh;
+package Java.DoAn.Class_chinh;
 
 import java.util.Scanner;
 
 public class PhieuNhapHang {
-    // thuộc tính
-    private String maPNH;
-    private String maNV;
-    private String maNCC;
-    private int ngayLapPhieu;
-    private double tongTien;
-
-    private CTPhieuNhapHang[] chiTiets;
-    private int soLuongCT;
+    String maPNH;
+    String maNV;
+    String maNCC;
+    String ngayLapPhieu;
+    double tongTien;
+    CTPhieuNhapHang[] chiTiets;
+    int soLuongCT;
 
     public PhieuNhapHang() {
         this.maPNH = "";
         this.maNV = "";
         this.maNCC = "";
-        this.ngayLapPhieu = 0;
+        this.ngayLapPhieu = "";
         this.tongTien = 0.0;
         this.chiTiets = new CTPhieuNhapHang[100];
         this.soLuongCT = 0;
     }
 
-    public PhieuNhapHang(String maPNH, String maNV, String maNCC, int ngayLapPhieu) {
+    public PhieuNhapHang(String maPNH, String maNV, String maNCC, String ngayLapPhieu) {
         this();
         this.maPNH = maPNH;
         this.maNV = maNV;
@@ -53,7 +51,7 @@ public class PhieuNhapHang {
         System.out.print("Ma Nha Cung Cap: ");
         maNCC = sc.nextLine();
         System.out.print("Ngay Thanh Lap (so): ");
-        ngayLapPhieu = sc.nextInt();
+        ngayLapPhieu = sc.nextLine();
         sc.nextLine();
 
         System.out.print("Nhap so luong chi tiet trong phieu: ");
@@ -70,23 +68,96 @@ public class PhieuNhapHang {
     }
 
     public void xuat() {
-        System.out.printf("%-10s %-10s %-10s %-10s%n", "MaPNH", "MaNV", "MaNCC", "Ngay");
-        System.out.printf("%-10s %-10s %-10s %-10d%n", maPNH, maNV, maNCC, ngayLapPhieu);
-        System.out.println("-------------------- CHI TIET PHIEU NHAP --------------------");
-        System.out.printf("%-10s %-15s %-10s %12s %12s%n", "MaPNH", "MaSach", "SoLuong", "DonGia", "ThanhTien");
+        System.out.println("\n========== THONG TIN PHIEU NHAP HANG ==========");
+        System.out.printf("%-15s %-15s %-15s %-10s%n", "MaPNH", "MaNV", "MaNCC", "NgayLap");
+        System.out.printf("%-15s %-15s %-15s %-10s%n", maPNH, maNV, maNCC, ngayLapPhieu);
+        
+        System.out.println("\n========== CHI TIET PHIEU NHAP HANG ==========");
+        System.out.printf("%-10s %-15s %-10s %12s %12s%n", 
+            "MaPNH", "MaSach", "SoLuong", "DonGia", "ThanhTien");
+        System.out.println("-------------------------------------------------------------");
+        
+        // In từng chi tiết
         for (int i = 0; i < soLuongCT; i++) {
             chiTiets[i].xuat();
         }
-        System.out.printf("%nTong tien cua phieu: %10.2f%n", tongTien);
+        
+        System.out.println("=============================================================");
+        System.out.printf("TONG TIEN CUA PHIEU: %,15.2f VND%n", tongTien);
+        System.out.println("=============================================================");
+    
     }
 
     public void themChiTiet(CTPhieuNhapHang ct) {
         if (soLuongCT < chiTiets.length) {
             chiTiets[soLuongCT++] = ct;
-            tongTien += ct.getThanhTien();
+            tongTien += ct.thanhTien();
         } else {
             System.out.println("Danh sach chi tiet da day, khong the them.");
         }
+    }
+
+    
+    public boolean xoaChiTiet(String maSach) {
+        for (int i = 0; i < soLuongCT; i++) {
+            if (chiTiets[i].maSach.equals(maSach)) {
+                tongTien -= chiTiets[i].thanhTien;
+                for (int j = i; j < soLuongCT - 1; j++) {
+                    chiTiets[j] = chiTiets[j + 1];
+                }
+                chiTiets[--soLuongCT] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean suaChiTiet(String maSach, int soLuongMoi) {
+        CTPhieuNhapHang ct = timChiTiet(maSach);
+        if (ct != null) {
+            tongTien -= ct.thanhTien;
+            ct.setsoLuong(soLuongMoi);
+            tongTien += ct.thanhTien;
+            return true;
+        }
+        return false;
+    }
+
+    public CTPhieuNhapHang timChiTiet(String maSach) {
+        for (int i = 0; i < soLuongCT; i++) {
+            if (chiTiets[i].maSach.equals(maSach)) {
+                return chiTiets[i];
+            }
+        }
+        return null;
+    }
+
+    public CTPhieuNhapHang layChiTiet(int index) {
+        if (index >= 0 && index < soLuongCT) {
+            return chiTiets[index];
+        }
+        return null;
+    }
+
+    public void tinhLaiTongTien() {
+        tongTien = 0.0;
+        for (int i = 0; i < soLuongCT; i++) {
+            tongTien += chiTiets[i].thanhTien;
+        }
+    }
+
+    public boolean isEmpty() {
+        return soLuongCT == 0;
+    }
+
+    public boolean isFull() {
+        return soLuongCT >= chiTiets.length;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("PhieuNhapHang[maPNH=%s, maNV=%s, maNCC=%s, ngayLap=%s, soLuongCT=%d, tongTien=%.2f]",
+            maPNH, maNV, maNCC, ngayLapPhieu, soLuongCT, tongTien);
     }
 
     public String getMaPNH() {
@@ -113,11 +184,11 @@ public class PhieuNhapHang {
         this.maNCC = maNCC;
     }
 
-    public int getNgayLapPhieu() {
+    public String getNgayLapPhieu() {
         return ngayLapPhieu;
     }
 
-    public void setNgayLapPhieu(int ngayLapPhieu) {
+    public void setNgayLapPhieu(String ngayLapPhieu) {
         this.ngayLapPhieu = ngayLapPhieu;
     }
 
