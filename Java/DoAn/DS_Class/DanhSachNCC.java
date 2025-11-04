@@ -1,24 +1,27 @@
 package Java.DoAn.DS_Class;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 import Java.DoAn.Class_chinh.NhaCungCap;
 
-public class DSNCC {
+public class DanhSachNCC {
     NhaCungCap[] dsNCC;
     int n;
 
     // Hàm thiết lập
-    public DSNCC() {
+    public DanhSachNCC() {
         dsNCC = new NhaCungCap[100];
         n = 0;
     }
 
-    public DSNCC(NhaCungCap[] dsNCC, int n) {
+    public DanhSachNCC(NhaCungCap[] dsNCC, int n) {
         this.dsNCC = dsNCC;
         this.n = n;
     }
 
-    public DSNCC(DSNCC ds) {
+    public DanhSachNCC(DanhSachNCC ds) {
         this.n = ds.n;
         this.dsNCC = new NhaCungCap[100];
         for (int i = 0; i < n; i++) {
@@ -143,6 +146,39 @@ public class DSNCC {
         }while(choice != 5);
         }else{
             System.out.println("Khong tim thay nha cung cap voi ma " + maNCC);
+        }
+    }
+
+    // Đọc file
+    public void docFile(String filePath) {
+        this.dsNCC = new NhaCungCap[100];
+        n = 0;
+        try (Scanner sc = new Scanner(new File(filePath))) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+                if (line.isEmpty())
+                    continue;
+
+                String[] parts = line.split(",");
+                if (parts.length < 4)
+                    continue;
+
+                String maNCC = parts[0].trim();
+                String tenNCC = parts[1].trim();
+                String diaChi = parts[2].trim();
+                String sdt = parts[3].trim();
+
+                NhaCungCap ncc = new NhaCungCap(tenNCC, maNCC, diaChi, sdt);
+                if (n < dsNCC.length) {
+                    dsNCC[n] = ncc;
+                    n++;
+                }
+            }
+            // System.out.println("Da doc file " + filePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("Khong tim thay file: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Loi doc file: " + e.getMessage());
         }
     }
 }

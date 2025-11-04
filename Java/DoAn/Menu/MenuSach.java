@@ -1,11 +1,13 @@
 package Java.DoAn.Menu;
 
 import java.util.Scanner;
-import Java.DoAn.DS_Class.DSSach;
+import Java.DoAn.DS_Class.DanhSachSach;
 
-public class MenuSach {
-    public void menuSach() {
-        DSSach dsSach = new DSSach();
+public class MenuSach extends Menu {
+    @Override
+    public void MenuChinh() {
+        DanhSachSach dsSach = new DanhSachSach();
+        dsSach.docFile("Java/DoAn/input/inputSach.txt");
         Scanner sc = new Scanner(System.in);
         int choice;
         do {

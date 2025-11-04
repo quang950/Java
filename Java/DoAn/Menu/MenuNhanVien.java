@@ -1,12 +1,14 @@
 package Java.DoAn.Menu;
 
 import java.util.Scanner;
-import Java.DoAn.DS_Class.DSNV;
+import Java.DoAn.DS_Class.DanhSachNV;
 
-public class MenuNhanVien {
-    public void menuNhanVien() {
-        DSNV dsNV = new DSNV();
+public class MenuNhanVien extends Menu {
+    @Override
+    public void MenuChinh() {
+        DanhSachNV dsnv = new DanhSachNV();
         Scanner sc = new Scanner(System.in);
+        dsnv.docFile("Java/DoAn/input/inputNhanVien.txt");
         int choice;
         do {
             System.out.println("===== MENU QUAN LY NHAN VIEN =====");
@@ -23,14 +25,14 @@ public class MenuNhanVien {
 
             switch (choice) {
                 case 1:
-                    dsNV.nhapdsnv();
+                    dsnv.nhapdsnv();
                     break;
                 case 2:
-                    dsNV.xuatdsnv();
+                    dsnv.xuatdsnv();
                     System.out.println();
                     break;
                 case 3:
-                    dsNV.themdsnv();
+                    dsnv.themNhanVien();
                     break;
                 case 4:
                     System.out.println("1. Tim theo ma.");
@@ -41,23 +43,23 @@ public class MenuNhanVien {
                     sc.nextLine();
                     switch (subChoice) {
                         case 1:
-                            dsNV.timnv();
+                            dsnv.timNhanVien();
                             break;
                         case 2:
-                            dsNV.tim_honv();
+                            dsnv.timHoNhanVien();
                             break;
                         case 3:
-                            dsNV.tim_tennv();
+                            dsnv.timTenNhanVien();
                             break;
                         default:
                             System.out.println("Lua chon khong hop le.");
                     }
                     break;
                 case 5:
-                    dsNV.xoanv();
+                    dsnv.xoaNhanVien();
                     break;
                 case 6:
-                    dsNV.suanv();
+                    dsnv.suaNhanVien();
                     break;
                 case 0:
                     System.out.println("Thoat khoi menu quan ly nhan vien.");
